@@ -2,61 +2,46 @@ $(document).ready(function(){
     
     // onclick events
     window.onload = function() {
+        console.log(trivia[0].options[0]);
         // Start de clock
         $('#start-game').on('click', triviaGame.start);
         // console.log(trivia[0].options.opt1);
+        $('#option1-holder').on('click', triviaGame.userGuess);
+        $('#option2-holder').on('click', triviaGame.userGuess);
+        $('#option3-holder').on('click', triviaGame.userGuess);
+        $('#option4-holder').on('click', triviaGame.userGuess);
     };
+    
+    
     
     // Array with all questions and answer options
     var  trivia = [{
         question: 'Which is the largest ocean?',
-        options: {
-            opt1: 'Atlantic',
-            opt2: 'Indian',
-            opt3: 'Arctic',
-            opt4: 'Pacific'
-            }
+        options: ['Atlantic', 'Indian', 'Arctic','Pacific'],
+        rightAnswer: 'Pacific'
         }, {
         question: 'Which Kardashian do not have a baby?',
-        options: {
-            opt1: 'Khloe',
-            opt2: 'Kim',
-            opt3: 'Kendall',
-            opt4: 'Kylie'
-            }
+        options: ['Khloe', 'Kim', 'Kendall', 'Kylie'],
+        rightAnswer: 'Kendall'
         }, {
         question: 'What are the first three words of the bible?',
-        options: {
-            opt1: 'In the beginning...',
-            opt2: 'There was nothing...',
-            opt3: 'Love is everywhere...',
-            opt4: 'In one moment...'
-            }
+        options: ['In the beginning...', 'There was nothing...', 'Love is everywhere...', 'In one moment...'],
+        rightAnswer: 'In the beginning...'
         }, {
         question: 'Where is the smallest bone in the body?',
-        options: {
-            opt1: 'Ears',
-            opt2: 'Smallest finger',
-            opt3: 'Wrist',
-            opt4: 'Elbow'
-            }
+        options: ['Ears', 'Smallest finger', 'Wrist', 'Elbow'],
+        rightAnswer: 'Ears'
         }, {
         question: 'Which is the only mammal that can’t jump?',
-        options: {
-            opt1: 'Elephant',
-            opt2: 'Seal',
-            opt3: 'Hedgenhog',
-            opt4: 'Giraffe'
-            }
+        options: ['Elephant', 'Seal', 'Hedgenhog', 'Giraffe'],
+        rightAnswer: 'Elephant'
         }, {
         question: 'Who cut Van Gogh’s ear?',
-        options: {
-            opt1: 'His neighbour',
-            opt2: 'His wife',
-            opt3: 'His brother',
-            opt4: 'He did'
-            }
+        options: ['His neighbour', 'His wife', 'His brother', 'He did'],
+        rightAnswer: 'He did'
         }];
+
+
 
 
 
@@ -65,36 +50,6 @@ $(document).ready(function(){
     // triviaIndex will keep track of the index of the currently displaying question+options.
     var triviaIndex = 0;
     
-
-
-    // This function will replace display whatever triviaIndex–-question+options–-is given.
-    function displayTriviaSlide() {
-        $("#question").text(trivia[triviaIndex].question);
-        $("#option1-holder").text(trivia[triviaIndex].options.opt1);
-        $("#option2-holder").text(trivia[triviaIndex].options.opt2);
-        $("#option3-holder").text(trivia[triviaIndex].options.opt3);
-        $("#option4-holder").text(trivia[triviaIndex].options.opt4);
-        triviaGame.reset();
-                
-        if (triviaIndex === trivia.length - 1) {
-            // triviaIndex = 0;
-            triviaGame.stop();
-            console.log('stoping game');
-        } else {
-            nextTriviaSlide();
-        };
-    };
-
-    // Show next slide
-    function nextTriviaSlide() {
-        console.log('going to the next slide');
-        // Increment triviaIndex by 1.
-        triviaIndex++;
-        // Use a setTimeout to run displayTriviaSlide after 1 second.
-        setTimeout(displayTriviaSlide, 5000);
-        // If the tirviaIndex is the same as the length of the image array, reset the count to 0.
-      };
-
 
 
 
@@ -116,9 +71,47 @@ $(document).ready(function(){
                 // I wanto to perform de triviaGame.count function (que convierte en segundos y minutos, y los pone en la pantalla) cada 1 segundo.
                 counter = setInterval(triviaGame.count, 1000);
                 // Put the question
-                showTrivia = setInterval(nextTriviaSlide, 5000);
+                showTrivia = setInterval(triviaGame.nextSlide, 5000);
+                // hide start button when the game start
+                $('#start-game').hide();
+                // start displaying questions+options
+                triviaGame.displaySlide();
+        },
 
-                displayTriviaSlide();
+        displaySlide: function () {
+            // This function will display whatever triviaIndex–-question+options–-is given.
+            $("#question").text(trivia[triviaIndex].question);
+            $("#option1-holder").text(trivia[triviaIndex].options[0]);
+            $("#option2-holder").text(trivia[triviaIndex].options[1]);
+            $("#option3-holder").text(trivia[triviaIndex].options[2]);
+            $("#option4-holder").text(trivia[triviaIndex].options[3]);
+            triviaGame.reset();
+                    
+            if (triviaIndex === trivia.length - 1) {
+                // triviaIndex = 0;
+                triviaGame.stop();
+                console.log('stoping game');
+            } else {
+                triviaGame.nextSlide();
+            };
+        },
+
+        nextSlide: function () {
+                // Show next slide
+                console.log('going to the next slide');
+                // Increment triviaIndex by 1.
+                triviaIndex++;
+                // Use a setTimeout to run displaySlide after 1 second.
+                setTimeout(triviaGame.displaySlide, 5000);
+                // If the tirviaIndex is the same as the length of the image array, reset the count to 0.
+        },
+
+        userGuess: function () {
+            // alert('click option!');
+            ////////////
+            // HELLLLPPPP
+            ////////
+
         },
 
         stop: function() {

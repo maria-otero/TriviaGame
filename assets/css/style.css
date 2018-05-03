@@ -22,7 +22,7 @@ h3 {
     /* text-shadow: 0.5px 0.5px 0.5px #00000098; */
 }
 
-button {
+.startButton {
     font-family: 'Montserrat', sans-serif;
     letter-spacing: 3px;
     width: 250px;
@@ -32,6 +32,10 @@ p {
     font-family: 'Roboto', sans-serif;
     font-weight: lighter;
     color: white;
+}
+
+.col-md-6 {
+    height: 135px;
 }
 
 #whiteBox {
@@ -56,9 +60,13 @@ p {
 }
 
 .optionText {
+    font-family: 'Roboto', sans-serif;
     font-size: 36px;
     color: #065e74;
-    padding: 40px 20px;   
+    padding: 40px 20px;  
+    font-weight: lighter; 
+    border: none;
+    background-color:rgba(255, 255, 255, 0);
 }
 
 .optionText:hover {
@@ -66,6 +74,7 @@ p {
     font-size: 250%;
     cursor: pointer;
 }
+
 
 .topPadding {
     padding-top: 8%;
