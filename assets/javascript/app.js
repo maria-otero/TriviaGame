@@ -44,9 +44,6 @@ $(document).ready(function(){
     // triviaIndex will keep track of the index of the currently displaying question+options.
     var triviaIndex = 0;
     
-
-
-
     var triviaGame = {
         time: 5,
         wins: 2,
@@ -60,8 +57,6 @@ $(document).ready(function(){
         },
 
         start: function() {
-                // I wanto to perform de triviaGame.count function (que convierte en segundos y minutos, y los pone en la pantalla) cada 1 segundo.
-                counter = setInterval(triviaGame.count, 1000);
                 // Put the question
                 showTrivia = setInterval(triviaGame.nextSlide, 5000);
                 // hide start button when the game start
@@ -97,7 +92,6 @@ $(document).ready(function(){
             }
             $('.jumbotron').html(displayBox);
 
-            triviaGame.nextSlide();
               
             if (triviaIndex === trivia.length) {
                 // triviaIndex = 0;
@@ -106,7 +100,7 @@ $(document).ready(function(){
             } else {
                 triviaGame.nextSlide();
             };
-            
+
             triviaGame.reset();
         },
 
@@ -131,12 +125,12 @@ $(document).ready(function(){
         stop: function() {
                 console.log('end game');
                 clearInterval(counter);
-                $('#timer').html('');
-                $("#question").text('GAME END!');
-                $("#option1-holder").text(this.wins);
-                $("#option2-holder").text(this.losses);
-                $("#option3-holder").text(this.unanswer);
-                $("#option4-holder").text('');
+                // $('#timer').html('');
+                // $("#question").text('GAME END!');
+                // $("#option1-holder").text(this.wins);
+                // $("#option2-holder").text(this.losses);
+                // $("#option3-holder").text(this.unanswer);
+                // $("#option4-holder").text('');
         },
 
         count: function() {
