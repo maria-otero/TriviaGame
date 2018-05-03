@@ -4,7 +4,6 @@ $(document).ready(function(){
     window.onload = function() {
         // Start de clock
         $('#start-game').on('click', triviaGame.start);
-        // console.log(trivia[0].options.opt1);
     };
     
     
@@ -57,8 +56,7 @@ $(document).ready(function(){
                 triviaGame.time = 5;
                 clearInterval(showTrivia);
                 // Change the timer to "00:00."
-                $('#timer').html('00:05');
-                
+                $('#timer').html('00:05');     
         },
 
         start: function() {
@@ -74,11 +72,16 @@ $(document).ready(function(){
 
         displaySlide: function () {
             // This function will display whatever triviaIndex–-question+options–-is given.
+            
+            // Dislay questions
             var displayQuestion = trivia[triviaIndex].question;
             $('#question').text(displayQuestion);
+
+            // Display a box that contains all the buttoms with the answer options
             var displayBox = $('<div>');
             displayBox.addClass('row text-center');
             
+            // Display answer options
             for(var i = 0; i < trivia[triviaIndex].options.length; i++) {
                 //create a var that creates buttons
                 var answerDiv = $('<div>');
@@ -95,15 +98,16 @@ $(document).ready(function(){
             $('.jumbotron').html(displayBox);
 
             triviaGame.nextSlide();
+              
+            if (triviaIndex === trivia.length) {
+                // triviaIndex = 0;
+                triviaGame.stop();
+                console.log('stoping game');
+            } else {
+                triviaGame.nextSlide();
+            };
+            
             triviaGame.reset();
-                    
-            // if (triviaIndex === trivia.length - 1) {
-            //     // triviaIndex = 0;
-            //     triviaGame.stop();
-            //     console.log('stoping game');
-            // } else {
-            //     triviaGame.nextSlide();
-            // };
         },
 
         nextSlide: function () {
