@@ -2,20 +2,15 @@ $(document).ready(function(){
     
     // onclick events
     window.onload = function() {
-        console.log(trivia[0].options[0]);
         // Start de clock
         $('#start-game').on('click', triviaGame.start);
         // console.log(trivia[0].options.opt1);
-        $('#option1-holder').on('click', triviaGame.userGuess);
-        $('#option2-holder').on('click', triviaGame.userGuess);
-        $('#option3-holder').on('click', triviaGame.userGuess);
-        $('#option4-holder').on('click', triviaGame.userGuess);
     };
     
     
     
     // Array with all questions and answer options
-    var  trivia = [{
+    var trivia = [{
         question: 'Which is the largest ocean?',
         options: ['Atlantic', 'Indian', 'Arctic','Pacific'],
         rightAnswer: 'Pacific'
@@ -59,7 +54,6 @@ $(document).ready(function(){
         losses: 3,
         unanswer: 0,
         reset: function() {
-                console.log('holi');
                 triviaGame.time = 5;
                 clearInterval(showTrivia);
                 // Change the timer to "00:00."
@@ -80,20 +74,36 @@ $(document).ready(function(){
 
         displaySlide: function () {
             // This function will display whatever triviaIndex–-question+options–-is given.
-            $("#question").text(trivia[triviaIndex].question);
-            $("#option1-holder").text(trivia[triviaIndex].options[0]);
-            $("#option2-holder").text(trivia[triviaIndex].options[1]);
-            $("#option3-holder").text(trivia[triviaIndex].options[2]);
-            $("#option4-holder").text(trivia[triviaIndex].options[3]);
+            var displayQuestion = trivia[triviaIndex].question;
+            $('#question').text(displayQuestion);
+            var displayBox = $('<div>');
+            displayBox.addClass('row text-center');
+            
+            for(var i = 0; i < trivia[triviaIndex].options.length; i++) {
+                //create a var that creates buttons
+                var answerDiv = $('<div>');
+                answerDiv.addClass('col-md-6');
+                var answerButton = $('<button>');
+                // put option text inside the button 
+                var triviaAnswer = trivia[triviaIndex].options[i];
+                answerButton.text(triviaAnswer);
+                answerButton.addClass('optionText')
+                answerButton.attr('data-value', triviaAnswer);
+                answerDiv.append(answerButton);
+                displayBox.append(answerDiv);
+            }
+            $('.jumbotron').html(displayBox);
+
+            triviaGame.nextSlide();
             triviaGame.reset();
                     
-            if (triviaIndex === trivia.length - 1) {
-                // triviaIndex = 0;
-                triviaGame.stop();
-                console.log('stoping game');
-            } else {
-                triviaGame.nextSlide();
-            };
+            // if (triviaIndex === trivia.length - 1) {
+            //     // triviaIndex = 0;
+            //     triviaGame.stop();
+            //     console.log('stoping game');
+            // } else {
+            //     triviaGame.nextSlide();
+            // };
         },
 
         nextSlide: function () {
