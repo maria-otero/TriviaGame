@@ -4,8 +4,6 @@ $(document).ready(function(){
     window.onload = function() {
         // Start de clock
         $('#start-game').on('click', triviaGame.start);
-        $('#stop-game').on('click', triviaGame.stop);
-
         // console.log(trivia[0].options.opt1);
     };
     
@@ -61,57 +59,59 @@ $(document).ready(function(){
         }];
 
 
+
     // Variable showTrivia will hold the setInterval when we start the slideshow
     var showTrivia;
-
     // triviaIndex will keep track of the index of the currently displaying question+options.
     var triviaIndex = 0;
-
     
+
+
     // This function will replace display whatever triviaIndex–-question+options–-is given.
-    // in the 'src' attribute of the img tag.
     function displayTriviaSlide() {
         $("#question").text(trivia[triviaIndex].question);
         $("#option1-holder").text(trivia[triviaIndex].options.opt1);
         $("#option2-holder").text(trivia[triviaIndex].options.opt2);
         $("#option3-holder").text(trivia[triviaIndex].options.opt3);
         $("#option4-holder").text(trivia[triviaIndex].options.opt4);
-        // trying to take of screen Start Button
-        // $('#start-game').html('');
-    }
+        triviaGame.reset();
+                
+        if (triviaIndex === trivia.length - 1) {
+            // triviaIndex = 0;
+            triviaGame.stop();
+            console.log('stoping game');
+        } else {
+            nextTriviaSlide();
+        };
+    };
 
-
-
-    // AQUI TENGO QUE PONER LAS REGLAS
-// ====================================================================
-// ******************************************************************
+    // Show next slide
     function nextTriviaSlide() {
+        console.log('going to the next slide');
         // Increment triviaIndex by 1.
         triviaIndex++;
         // Use a setTimeout to run displayTriviaSlide after 1 second.
-        setTimeout(displayTriviaSlide, 1000);
-        // TODO: If the count is the same as the length of the image array, reset the count to 0.
-        if (triviaIndex === trivia.length) {
-            triviaIndex = 0;
-        }
-      }
-//   ******************************************************************
-//   ====================================================================
+        setTimeout(displayTriviaSlide, 5000);
+        // If the tirviaIndex is the same as the length of the image array, reset the count to 0.
+      };
 
 
 
 
     var triviaGame = {
-        time: 0,
-        wins: 0,
-        losses: 0,
+        time: 5,
+        wins: 2,
+        losses: 3,
         unanswer: 0,
         reset: function() {
-                triviaGame.time = 0;
+                console.log('holi');
+                triviaGame.time = 5;
+                clearInterval(showTrivia);
                 // Change the timer to "00:00."
-                $('#timer').html('00:00');
-
+                $('#timer').html('00:05');
+                
         },
+
         start: function() {
                 // I wanto to perform de triviaGame.count function (que convierte en segundos y minutos, y los pone en la pantalla) cada 1 segundo.
                 counter = setInterval(triviaGame.count, 1000);
@@ -119,24 +119,29 @@ $(document).ready(function(){
                 showTrivia = setInterval(nextTriviaSlide, 5000);
 
                 displayTriviaSlide();
-
-
-                
-                
         },
+
         stop: function() {
-                clearInterval(showTrivia);
-                triviaGame.reset();
-
-
+                console.log('end game');
+                clearInterval(counter);
+                $('#timer').html('');
+                $("#question").text('GAME END!');
+                $("#option1-holder").text(this.wins);
+                $("#option2-holder").text(this.losses);
+                $("#option3-holder").text(this.unanswer);
+                $("#option4-holder").text('');
         },
+
         count: function() {
-                triviaGame.time++;
+                triviaGame.time--;
+                console.log(triviaGame.time);
                 // create a var that store our time counter, and convert sec into clock sec and minutes
                 var converted = triviaGame.timeConverter(triviaGame.time);
+                
                 // Display this converted time to the user
                 $('#timer').html(converted);
         },
+
         timeConverter: function(t) {
             var minutes = Math.floor(t / 60);
             var seconds = t - (minutes * 60);
