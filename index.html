@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- bootstrap link -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600i|Roboto:300,400" rel="stylesheet">
+    <!-- my css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <!-- jQuery link -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <title>Trivia Game</title>
+</head>
+
+<body>
+    <!-- game name -->
+    <nav class="navbar justify-content-between">
+        <h3><span class="navText">PLAY TRIVIA</span> . . . or go to the beach</h3>
+        <button id="start-game" class="btn btn-outline-light my-2 my-sm-0">START</button>
+    </nav>
+    <!-- ppl structure -->
+    <div class="container">
+        <!-- timer and questions -->
+        <div class="row topPadding">
+            <div class="col-md-12 text-center">
+                <h1 id="timer">00:00</h1>
+                <h1 id="question" class="question-text">The question is...</h1>
+            </div>
+        </div>
+        <!-- posible answers/right vs wrong -->
+        <div class="jumbotron">
+            <div class="row text-center">
+                <div class="col-md-6">
+                    <h1 id="option1-holder" class="optionText"> </h1>
+                </div>
+                <div class="col-md-6">
+                    <h1 id="option2-holder" class="optionText"> </h1>
+                </div>
+            </div> 
+            <div class="row text-center">
+                <div class="col-md-6">
+                    <h1 id="option3-holder" class="optionText"> </h1>
+                </div>
+                <div class="col-md-6">
+                    <h1 id="option4-holder" class="optionText"> </h1>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <!-- <div id="whiteBox"></div> -->
+
+    <script type="text/javascript" src="assets/javascript/app.js"></script>
+</body>
+</html>
