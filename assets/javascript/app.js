@@ -1,5 +1,18 @@
 $(document).ready(function(){
     
+    $(document).on('click', '.optionText', function(){
+        var answer = $(this).attr('data-value');
+        if(answer === trivia[triviaIndex].rightAnswer){
+            console.log('correct')
+            triviaIndex++;
+            triviaGame.nextSlide();
+        } else {
+            console.log('incorrect')
+            triviaIndex++;
+            triviaGame.nextSlide();
+        }
+    })
+
     // onclick events
     window.onload = function() {
         // Start de clock
@@ -48,7 +61,7 @@ $(document).ready(function(){
         time: 5,
         wins: 2,
         losses: 3,
-        unanswers: 0,
+        unanswer: 0,
         reset: function() {
                 triviaGame.time = 5;
                 clearInterval(showTrivia);
@@ -58,10 +71,9 @@ $(document).ready(function(){
 
         start: function() {
                 // Put the question
-                showTrivia = setInterval(triviaGame.nextSlide, 5000);
+                // showTrivia = setTimeout(triviaGame.nextSlide, 1000);
                 // hide start button when the game start
                 $('#start-game').hide();
-                
                 // start displaying questions+options
                 triviaGame.displaySlide();
         },
@@ -86,7 +98,7 @@ $(document).ready(function(){
                 // put option text inside the button 
                 var triviaAnswer = trivia[triviaIndex].options[i];
                 answerButton.text(triviaAnswer);
-                answerButton.addClass('optionText');
+                answerButton.addClass('optionText')
                 answerButton.attr('data-value', triviaAnswer);
                 answerDiv.append(answerButton);
                 displayBox.append(answerDiv);
@@ -98,38 +110,22 @@ $(document).ready(function(){
                 // triviaIndex = 0;
                 triviaGame.stop();
                 console.log('stoping game');
+            }
+            // } else {
+            //     triviaGame.nextSlide();
+            // };
 
-                //Last slide
-                var winsText = $('<h1>');
-                winsText.addClass('optionText');
-                winsText = triviaGame.wins;
-
-                var lossesText = $('<h1>');
-                lossesText.addClass('optionText');
-                lossesText = triviaGame.losses;
-
-                var unanswersText = $('<h1>');
-                unanswersText.addClass('optionText');
-                unanswersText = triviaGame.unanswers;
-
-                displayBox.append(winsText);
-                displayBox.append(lossesText);
-                displayBox.append(unanswersText);
-
-            } else {
-                triviaGame.nextSlide();
-            };
-
-            triviaGame.reset();
+            // triviaGame.reset();
         },
 
         nextSlide: function () {
+                // showTrivia = setTimeout(triviaGame.nextSlide, 5000);
                 // Show next slide
                 console.log('going to the next slide');
                 // Increment triviaIndex by 1.
-                triviaIndex++;
+                // triviaIndex++;
                 // Use a setTimeout to run displaySlide after 1 second.
-                setTimeout(triviaGame.displaySlide, 5000);
+                setTimeout(triviaGame.displaySlide, 1000);
                 // If the tirviaIndex is the same as the length of the image array, reset the count to 0.
         },
 
@@ -178,4 +174,3 @@ $(document).ready(function(){
             }
         }
 });
-
