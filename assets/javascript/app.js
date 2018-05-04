@@ -48,7 +48,7 @@ $(document).ready(function(){
         time: 5,
         wins: 2,
         losses: 3,
-        unanswer: 0,
+        unanswers: 0,
         reset: function() {
                 triviaGame.time = 5;
                 clearInterval(showTrivia);
@@ -61,6 +61,7 @@ $(document).ready(function(){
                 showTrivia = setInterval(triviaGame.nextSlide, 5000);
                 // hide start button when the game start
                 $('#start-game').hide();
+                
                 // start displaying questions+options
                 triviaGame.displaySlide();
         },
@@ -85,7 +86,7 @@ $(document).ready(function(){
                 // put option text inside the button 
                 var triviaAnswer = trivia[triviaIndex].options[i];
                 answerButton.text(triviaAnswer);
-                answerButton.addClass('optionText')
+                answerButton.addClass('optionText');
                 answerButton.attr('data-value', triviaAnswer);
                 answerDiv.append(answerButton);
                 displayBox.append(answerDiv);
@@ -97,6 +98,24 @@ $(document).ready(function(){
                 // triviaIndex = 0;
                 triviaGame.stop();
                 console.log('stoping game');
+
+                //Last slide
+                var winsText = $('<h1>');
+                winsText.addClass('optionText');
+                winsText = triviaGame.wins;
+
+                var lossesText = $('<h1>');
+                lossesText.addClass('optionText');
+                lossesText = triviaGame.losses;
+
+                var unanswersText = $('<h1>');
+                unanswersText.addClass('optionText');
+                unanswersText = triviaGame.unanswers;
+
+                displayBox.append(winsText);
+                displayBox.append(lossesText);
+                displayBox.append(unanswersText);
+
             } else {
                 triviaGame.nextSlide();
             };
